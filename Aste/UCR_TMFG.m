@@ -5,7 +5,7 @@ function UCR_TMFG(name, inputdirname, outputdirname)
     
     %%%%Prepare inputs for DBHT %%%%%%%%%
 %     addpath /home/ubuntu/matlab_bgl/matlab_bgl 
-    addpath '/Users/sy/Desktop/MIT/MatlabBGL/matlab_bgl'
+    addpath 'D:\Documents\PhD\Code\matlab_bgl'
     outputdirname = strcat(outputdirname, "/");
     load(strcat(inputdirname, name, ".mat"))
     name = strcat(name,"", "-tmfg")

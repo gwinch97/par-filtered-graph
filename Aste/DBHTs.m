@@ -627,6 +627,9 @@ Hb=(Hb~=0);
 [r,c]=find(triu(Hb)~=0);
 CliqEdge=[];
 for n=1:length(r);
+    disp(size(r(n)));
+    disp(size(c(n)));
+    disp(size(find((Mb(:,r(n))~=0)&(Mb(:,c(n))~=0))));
     CliqEdge=[CliqEdge;r(n) c(n) find((Mb(:,r(n))~=0)&(Mb(:,c(n))~=0))];
 end
 clear r c

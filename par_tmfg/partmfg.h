@@ -138,14 +138,19 @@ struct ParTMFG{
     }    
 
     void outputP(string filename, size_t _n=0){
-        if(_n==0)_n = P_ind;
+        if(_n==0) _n = P_ind;
         ofstream file_obj;
         file_obj.open(filename); 
+        if (!file_obj) {
+            cerr << "Error opening file: " << filename << endl;
+            return;
+        }
         for(size_t i=0;i<_n;i++){
             file_obj << get<0>(P[i])+1 << " " << get<1>(P[i])+1 << " " << get<2>(P[i]) << endl;
         }
         file_obj << n << " " << n << " " << 0 << endl;
         file_obj.close();
+//        cout << "Successfully wrote P to: " << filename << endl;
     }   
 
     void outputCliques(string filename, size_t _n=0){

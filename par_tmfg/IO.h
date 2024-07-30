@@ -25,20 +25,32 @@ namespace IO {
   }
 
   // read a symmatric matrix from file
-  template <class T>
-  SymM<T> readSymMatrixFromFile(char const *fname, std::size_t n) {
+    template <class T>
+    SymM<T> readSymMatrixFromFile(char const *fname, std::size_t n) {
     parlay::sequence<double> W = parlay::sequence<double>(n*n);
-    std::ifstream myFile (fname, ios::in | ios::binary);
+    std::ifstream myFile(fname, std::ios::in | std::ios::binary);
+    if (!myFile) {
+        std::cerr << "Error opening file: " << fname << std::endl;
+        abort();
+    }
     myFile.read((char*)W.data(), sizeof(double) * n*n);
     if (W.size() == 0) {
-      cout << "readPointsFromFile empty file" << endl;
-      abort();
+        std::cerr << "readPointsFromFile empty file" << std::endl;
+        abort();
     }
     if (W.size() % n != 0) {
-      cout << "readPointsFromFile wrong file type or wrong dimension" << endl;
-      abort();
+        std::cerr << "readPointsFromFile wrong file type or wrong dimension" << std::endl;
+        abort();
     }
-    return parseSymMatrix<T>(W.cut(0,W.size()), n);
-  }
-
-}  // namespace IO
+    std::cout << "Matrix loaded successfully from file: " << fname << std::endl;
+    // Print a few values for debugging
+    std::cout << "Matrix values:" << std::endl;
+    for (std::size_t i = 0; i < std::min(n, (std::size_t)5); ++i) {
+        for (std::size_t j = 0; j < std::min(n, (std::size_t)5); ++j) {
+            std::cout << W[i * n + j] << " ";
+        }
+       std::cout << std::endl;
+    }
+    return parseSymMatrix<T>(W.cut(0, W.size()), n);
+}
+}
